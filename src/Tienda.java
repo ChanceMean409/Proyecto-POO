@@ -12,7 +12,7 @@ import java.util.Scanner;
  * @author rlopr
  */
 public class Tienda {
-
+//xd
     /**
      * @param args the command line arguments
      */
