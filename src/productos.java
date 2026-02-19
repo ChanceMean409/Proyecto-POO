@@ -38,8 +38,8 @@ public class productos {
         catalogo.add(new productos("corn flakes", 57, 17, "harinas"));
     }
     // Verificar disponibilidad
-    public boolean verificarDisponibilidad(int cantidad) {
-        if (cantidad > 0 && stock >= cantidad) {
+    public boolean verificarDisponibilidad(int inventario) {
+        if (inventario > 0 && stock >= inventario) {
             return true;
         } else {
             return false;
@@ -51,5 +51,11 @@ public class productos {
         if (verificarDisponibilidad(cantidad)) {
             stock -= cantidad;
         }
+    }
+    public String getNombre(){
+        return this.nombre;
+    }
+    public float getPrecio(){
+        return this.precio;
     }
 }
