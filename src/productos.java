@@ -24,7 +24,7 @@ public class productos {
     }
     //Inventario
     public static void inventario(){
-       //mamada
+    
     }
     // Verificar disponibilidad
     public boolean verificarDisponibilidad(int cantidad) {
