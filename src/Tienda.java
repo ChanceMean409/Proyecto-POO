@@ -23,7 +23,7 @@ public class Tienda {
                     System.out.println(i+". "+p.getNombre()+" -  $"+p.getPrecio());
                 }
                 System.out.println(opcionSalir+". ir a la caja a pagar (Salir)");
-                System.out.println(opcionSalir+"\nElija el numero de producto que desea: ");
+                System.out.println("\nElija el numero de producto que desea: ");
                 opcion = sc.nextInt();
                 if (opcion>=0&&opcion<opcionSalir) {
                     productos productoElegido = productos.catalogo.get(opcion);
