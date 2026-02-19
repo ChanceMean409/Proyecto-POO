@@ -23,12 +23,23 @@ public class productos {
         this.categoria = categoria;
     }
     //Inventario
-    public static void inventario(){
-    
+      public static void inventario() {
+        if (!catalogo.isEmpty()) return; // evita duplicados
+
+        catalogo.add(new productos("pan", 38,59, "harinas"));
+        catalogo.add(new productos("atun",35, 20, "enlatados"));
+        catalogo.add(new productos("chiplotles", 15, 48, "enlatados"));
+        catalogo.add(new productos("vasos de unicel", 20, 30, "desechables"));
+        catalogo.add(new productos("coca cola", 54, 20, "bebidas"));
+        catalogo.add(new productos("leche", 25, 58, "lacteos"));
+        catalogo.add(new productos("queso", 15, 10, "lacteos"));
+        catalogo.add(new productos("sopa", 10, 48, "harinas"));
+        catalogo.add(new productos("mayonesa", 35, 7, "enlatados"));
+        catalogo.add(new productos("corn flakes", 57, 17, "harinas"));
     }
     // Verificar disponibilidad
-    public boolean verificarDisponibilidad(int cantidad) {
-        if (cantidad > 0 && stock >= cantidad) {
+    public boolean verificarDisponibilidad(int inventario) {
+        if (inventario > 0 && stock >= inventario) {
             return true;
         } else {
             return false;
@@ -40,5 +51,11 @@ public class productos {
         if (verificarDisponibilidad(cantidad)) {
             stock -= cantidad;
         }
+    }
+    public String getNombre(){
+        return this.nombre;
+    }
+    public float getPrecio(){
+        return this.precio;
     }
 }
