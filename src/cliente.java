@@ -6,7 +6,7 @@ public class cliente {
      // definicion de atributos de la clase
     private String nombre;
     private String email;
-    private ArrayList<String> lista;
+    private ArrayList<String> listaDeDirecciones;
     private String contrasena;
    //constructor
     public cliente(){
