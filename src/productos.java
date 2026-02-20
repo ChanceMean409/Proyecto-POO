@@ -25,7 +25,7 @@ public class productos {
     //Inventario
       public static void inventario() {
         if (!catalogo.isEmpty()) return; // evita duplicados
-
+        
         catalogo.add(new productos("Pan", 38,59, "Harinas"));
         catalogo.add(new productos("Atun",35, 20, "Enlatados"));
         catalogo.add(new productos("Chiplotles", 15, 48, "Enlatados"));
