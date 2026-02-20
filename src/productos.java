@@ -36,6 +36,7 @@ public class productos {
         catalogo.add(new productos("sopa", 10, 48, "harinas"));
         catalogo.add(new productos("mayonesa", 35, 7, "enlatados"));
         catalogo.add(new productos("corn flakes", 57, 17, "harinas"));
+        //una mmada we ahhhh
     }
     // Verificar disponibilidad
     public boolean verificarDisponibilidad(int inventario) {
