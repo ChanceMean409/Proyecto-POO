@@ -4,13 +4,14 @@ public class Tienda {
     public static void main(String[] args) {
         Scanner sc=new Scanner(System.in);
         cliente c=new cliente();
+        System.out.println("!Buenas, Bienvenidos a GaRoSa!");
         productos.inventario();
         c.registro();
         boolean puedeEntrar = c.verificar();
         
         if (puedeEntrar){
             System.out.println("\n========================================");
-            System.out.println("    BIENBENIDOS A LA TIENDA DE ABARROTES");
+            System.out.println("  BIENBENIDOS A LA TIENDA DE ABARROTES");
             System.out.println("========================================");
             carrito miCarrito = new carrito();
             int opcion;
@@ -38,7 +39,7 @@ public class Tienda {
                 }
             } while (opcion!=opcionSalir);
             miCarrito.mostrarDetalle();
-            System.out.println("\n¡Gracias por su compra!");
+            System.out.println("\n!Gracias por su compra!");
             
         } else {
             System.out.println("\nCerrando el sistema por seguridad");

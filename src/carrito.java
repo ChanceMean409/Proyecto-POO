@@ -36,11 +36,11 @@ public class carrito {
         }
        return subtotal+costoEnvio - descuento;
      }
-    //mostrar carrito final
+    //mostrar carrito subtotal
     public void mostrarDetalle(){
-        System.out.println("\n---MI CARRITO ---");
+        System.out.println("\n---  MI CARRITO ---");
         if (listaDeProductos.isEmpty()) {
-            System.out.println("El Carrito está vacío.");
+            System.out.println("El Carrito esta vacio.");
         }else{
             for (int i = 0; i < listaDeProductos.size(); i++) {
                 productos p = listaDeProductos.get(i);
