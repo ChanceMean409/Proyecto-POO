@@ -28,14 +28,14 @@ public class productos {
         
         catalogo.add(new productos("Pan", 38,59, "Harinas"));
         catalogo.add(new productos("Atun",35, 20, "Enlatados"));
-        catalogo.add(new productos("Chiplotles", 15, 48, "Enlatados"));
+        catalogo.add(new productos("Chiplotles", 20, 48, "Enlatados"));
         catalogo.add(new productos("Vasos de unicel", 20, 30, "Desechables"));
         catalogo.add(new productos("Coca cola", 54, 20, "Bebidas"));
         catalogo.add(new productos("Leche", 25, 58, "Lacteos"));
-        catalogo.add(new productos("Queso", 15, 10, "Lacteos"));
-        catalogo.add(new productos("Sopa", 10, 48, "Harinas"));
+        catalogo.add(new productos("Queso", 35, 10, "Lacteos"));
+        catalogo.add(new productos("Sopa", 15, 48, "Harinas"));
         catalogo.add(new productos("Mayonesa", 35, 7, "Enlatados"));
-        catalogo.add(new productos("Corn flakes", 57, 17, "Harinas"));
+        catalogo.add(new productos("Corn flakes", 55, 17, "Harinas"));
     }
     // Verificar disponibilidad
     public boolean verificarDisponibilidad(int inventario) {

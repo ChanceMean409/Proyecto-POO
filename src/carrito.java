@@ -7,13 +7,11 @@ public class carrito {
     //definicion de atributos
     private List<productos> listaDeProductos;
     private float costoEnvio;
-    private float descuento;
     
     //constructor sin argumentos
     public carrito(){
         this.listaDeProductos = new ArrayList<>();
-        this.costoEnvio = 150;
-        this.descuento=0;
+        this.costoEnvio = 10;
     }
     //metodo de agregar objetos
     public void agregarProductos(productos nuevoProducto){
@@ -29,15 +27,15 @@ public class carrito {
         }
       }
     //Calcular total
-    public float calcularTotal(){
+    public float calcularTotal(cliente direccionElegida){
         float subtotal=0;
         for (productos p : listaDeProductos) {
             subtotal=subtotal+p.getPrecio();
         }
-       return subtotal+costoEnvio - descuento;
+       return subtotal+ direccionElegida.getPrecio();
      }
     //mostrar carrito subtotal
-    public void mostrarDetalle(){
+    public void mostrarDetalle(cliente direccionElegida){
         System.out.println("\n---  MI CARRITO ---");
         if (listaDeProductos.isEmpty()) {
             System.out.println("El Carrito esta vacio.");
@@ -46,8 +44,9 @@ public class carrito {
                 productos p = listaDeProductos.get(i);
                 System.out.println("["+ i+ "]"+ p.getNombre()+ " - $"+p.getPrecio());
             }
-            System.out.println("Costo de envío: $"+costoEnvio);
-            System.out.println("TOTAL A PAGAR: $"+calcularTotal());
+            System.out.println("Costo de envio base : $"+costoEnvio);
+            System.out.println("Costo con direccion ("+direccionElegida.getDireccion()+") : $"+direccionElegida.getPrecio());
+            System.out.println("TOTAL A PAGAR: $"+calcularTotal(direccionElegida));
         }
       }
     }

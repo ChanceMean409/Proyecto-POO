@@ -7,8 +7,9 @@ public class Tienda {
         System.out.println("!Buenas, Bienvenidos a GaRoSa!");
         productos.inventario();
         c.registro();
+        cliente.lista();
         boolean puedeEntrar = c.verificar();
-        
+
         if (puedeEntrar){
             System.out.println("\n========================================");
             System.out.println("  BIENBENIDOS A LA TIENDA DE ABARROTES");
@@ -38,8 +39,37 @@ public class Tienda {
                     System.out.println("Opcion no valida. intente de nuevo.");
                 }
             } while (opcion!=opcionSalir);
-            miCarrito.mostrarDetalle();
-            System.out.println("\n!Gracias por su compra!");
+          
+            // Eleccion de direcciones
+            System.out.println("\nElija su direcion");
+            System.out.println("\n--- Zonas de entrega---");
+
+            // mostrar direcciones
+            for (int i = 0; i < cliente.lista.size(); i++) {
+                cliente l = cliente.lista.get(i);
+                System.out.println(i+"."+l.getDireccion()+" - $"+l.getPrecio());
+            }
+            System.out.println(cliente.lista.size()+". Confirmar compra y direccion");
+            int opcionDireccion;
+            cliente direccionElegida=null;
+            opcionDireccion = sc.nextInt();
+            
+            if (opcionDireccion >= 0 && opcionDireccion < cliente.lista.size()) {
+                direccionElegida = cliente.lista.get(opcionDireccion);
+                System.out.println("Has elegido :"+direccionElegida.getDireccion()+" - con un precio de - $"+direccionElegida.getPrecio());
+            }
+            // puto el que lo lea
+            
+            
+            
+            
+            
+            
+            
+            miCarrito.mostrarDetalle(c);
+            System.out.println("\n Gracias por su compra !");
+            
+            
             
         } else {
             System.out.println("\nCerrando el sistema por seguridad");
