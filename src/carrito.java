@@ -19,7 +19,7 @@ public class carrito {
         System.out.println("Producto Agregado Exitosamente.");
     }
     
-    // Metodo de quitar productos (Ojo: los índices aquí son por cada producto individual)
+    // Metodo de quitar productos
     public void eliminarProducto(int indice){
         if (indice >= 0 && indice < listaDeProductos.size()){
             listaDeProductos.remove(indice);
@@ -28,19 +28,19 @@ public class carrito {
         }
     }
     
-    // Calcular total (¡Corregido para cobrar los 10 pesos base!)
+    // Calcular total 
     public float calcularTotal(cliente direccionElegida){
         float subtotal = 0;
         for (productos p : listaDeProductos) {
             subtotal = subtotal + p.getPrecio();
         }
-        // Ahora sí suma los productos + la zona + el costo base de 10
         return subtotal + direccionElegida.getPrecio() + costoEnvio;
     }
     
     // Mostrar carrito y stackear (agrupar) productos repetidos
-    public void mostrarDetalle(cliente direccionElegida){
-        System.out.println("\n---  TICKET DE COMPRA ---");
+    public void mostrarDetalle(cliente direccionElegida, String nombreCliente){
+        System.out.println("\nCliente: "+nombreCliente);
+        System.out.println("---  TICKET DE COMPRA ---");
         
         if (listaDeProductos.isEmpty()) {
             System.out.println("El Carrito esta vacio.");
@@ -54,12 +54,10 @@ public class carrito {
             for (productos p : listaDeProductos) {
                 String nombreActual = p.getNombre();
                 
-                // Si el producto ya está en nuestra lista agrupada, le sumamos 1
                 if (nombres.contains(nombreActual)) {
                     int index = nombres.indexOf(nombreActual);
                     cantidades.set(index, cantidades.get(index) + 1);
                 } 
-                // Si es un producto nuevo, lo agregamos por primera vez
                 else {
                     nombres.add(nombreActual);
                     cantidades.add(1);
@@ -74,7 +72,6 @@ public class carrito {
                 float precioUnitario = precios.get(i);
                 float subtotalProducto = cant * precioUnitario;
                 
-                // Formato: 3x Pan - $114.0 ($38.0 c/u)
                 System.out.println(cant + "x " + nom + " - $" + subtotalProducto + " ($" + precioUnitario + " c/u)");
             }
             
