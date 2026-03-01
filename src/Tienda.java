@@ -4,10 +4,9 @@ import java.util.ArrayList;
 public class Tienda {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        System.out.println("!Buenas, Bienvenidos a GaRoSa!");
+        System.out.println("!Buenas, Bienvenidos a GaRoSe!");
         productos.inventario();
-        cliente.lista();
-        
+        cliente.lista(); 
         ArrayList<cliente> historialUsuarios = new ArrayList<>();
         
         int opcionContinuarTienda = 0;
@@ -44,7 +43,7 @@ public class Tienda {
                     }
                 }
             }
-            
+            //MOSTRAR TIENDA
             if (puedeEntrar) {
                 System.out.println("\n========================================");
                 System.out.println("  BIENVENIDOS A LA TIENDA DE ABARROTES");
@@ -55,6 +54,7 @@ public class Tienda {
                 int opcionSalir = productos.catalogo.size();
                 int articulosComprados = 0;
                 
+                //COMPRAR PRODUCTOS
                 do {
                     System.out.println("\n--- Pasillo de Productos ---");
                     for (int i = 0; i < productos.catalogo.size(); i++) {
@@ -62,26 +62,44 @@ public class Tienda {
                         System.out.println(i + ". " + p.getNombre() + " -  $" + p.getPrecio());
                     }
                     System.out.println(opcionSalir + ". ir a la caja a pagar (Salir)");
-                    System.out.println("\nElija el numero de producto que desea: ");
+                    System.out.println("\nElija el numero del producto que desea: ");
                     opcion = sc.nextInt();
                     
                     if (opcion >= 0 && opcion < opcionSalir) {
                         productos productoElegido = productos.catalogo.get(opcion);
-                        if (productoElegido.verificarDisponibilidad(1)) {
+                        
+                        // para pedir la cantidad de un producto
+                        System.out.println("\nCuantas unidades de "+productoElegido.getNombre()+" desea?");
+                        int cantidad = sc.nextInt();
+                        
+                        
+                        //validar stock
+                        if (productoElegido.verificarDisponibilidad(cantidad)) {
+                            for (int i = 0; i < cantidad; i++) {     
                             miCarrito.agregarProductos(productoElegido);
-                            productoElegido.actualizarStock(1);
-                            articulosComprados++;
-                        } else {
-                            System.out.println("Lo sentimos, producto agotado.");
+                            }
+                            productoElegido.actualizarStock(cantidad);
+                            articulosComprados += cantidad;
+                        //mensaje de productos anadidos al carrito
+                            System.out.println("\nSe agregaron "+cantidad+" de "+productoElegido.getNombre()+" a tu carrito");
+                        } 
+                        else {
+                            System.out.println("\nLo sentimos, no hay sufieciente cantidad disponible.");
                         }
                     } else if (opcion != opcionSalir) {
                         System.out.println("Opcion no valida. intente de nuevo.");
                     }
+                    
+  
+                    
                 } while (opcion != opcionSalir);
                 
+                //ELEJIR DIRECCION
                 if (articulosComprados > 0) {
                     System.out.println("\nElija su direcion");
                     System.out.println("\n--- Zonas de entrega ---");
+                    System.out.println("Se cobrara $25 de envio base\n");
+                    
                     int opcionDireccion;
                     cliente direccionElegida = null;
                     boolean compraConfirmada = false;
@@ -96,8 +114,8 @@ public class Tienda {
                         
                         if (opcionDireccion >= 0 && opcionDireccion < cliente.lista.size()) {
                             direccionElegida = cliente.lista.get(opcionDireccion);
-                            System.out.println("Has elegido :" + direccionElegida.getDireccion() + " - con un precio de - $" + direccionElegida.getPrecio());
-                            System.out.println("Ahora ingresa " + cliente.lista.size() + " para confirmar la compra.");
+                            System.out.println("\nHas elegido :" + direccionElegida.getDireccion() + " - con un precio de - $" + direccionElegida.getPrecio());
+                            System.out.println("Ahora ingresa " + cliente.lista.size() + " para confirmar la compra.\n");
                         } else if (opcionDireccion == cliente.lista.size()) {
                             if (direccionElegida != null) {
                                 miCarrito.mostrarDetalle(direccionElegida, c.getNombre());
@@ -115,6 +133,7 @@ public class Tienda {
                     System.out.println("\nEl carrito esta vacio. Cancelando este pedido...");
                 }
                 
+                //OPCIONES DE COMPRA,REGISTRO,CERRAR SISTEMA
                 System.out.println("\n----------------------------------------");
                 System.out.println("¿Desea realizar otra compra en el sistema?");
                 System.out.println("1. Si, continuar con el mismo usuario (" + c.getNombre() + ")");
