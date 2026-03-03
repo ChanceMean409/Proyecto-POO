@@ -14,46 +14,52 @@ public class carrito {
         this.costoEnvio = 10;
     }
     
-    
+    public boolean estaVacio() {
+        return listaDeProductos.isEmpty();
+    }
     
     //METODO DONDE SE HACE LA COMPRA DE PRODUCTOS
-public void comprarBiberes() {
-    Scanner sc = new Scanner (System.in);
-    int opcion;
-    int opcionSalir = productos.catalogo.size();
-    int articulosComprados = 0;
+    public void comprarBiberes() {
+        Scanner sc = new Scanner (System.in);
+        int opcion;
+        int opcionSalir = productos.catalogo.size();
+        int articulosComprados = 0;
 
-    do {
-        System.out.println("\n--- Pasillo de Productos ---");
-        for (int i = 0; i < productos.catalogo.size(); i++) {
-            productos p = productos.catalogo.get(i);
-            System.out.println(i + ". [" + p.getCategoria() + "] " + p.getNombre() + " - $" + p.getPrecio());
-        }
-        System.out.println(opcionSalir + ". Ir a la caja a pagar (Salir)");
-        System.out.println("\nElija el número del producto que desea: ");
-        opcion = sc.nextInt();
-
-        if (opcion >= 0 && opcion < opcionSalir) {
-            productos productoElegido = productos.catalogo.get(opcion);
-
-            System.out.println("\n¿Cuántas unidades de " + productoElegido.getNombre() + " desea?");
-            int cantidad = sc.nextInt();
-
-            if (productoElegido.verificarDisponibilidad(cantidad)) {
-                agregarProductos(productoElegido, cantidad);
-                articulosComprados += cantidad;
-            } else {
-                System.out.println("\nLo sentimos, no hay suficiente cantidad disponible.");
+        do {
+            System.out.println("\n--- Pasillo de Productos ---");
+            for (int i = 0; i < productos.catalogo.size(); i++) {
+                productos p = productos.catalogo.get(i);
+                System.out.println(i + ". [" + p.getCategoria() + "] " + p.getNombre() + " - $" + p.getPrecio());
             }
-        } else if (opcion != opcionSalir) {
-            System.out.println("\nOpción no válida, intente de nuevo.");
-        }
-    } while (opcion != opcionSalir);
+            System.out.println(opcionSalir + ". Ir a la caja a pagar (Salir)");
+            System.out.println("\nElija el numero del producto que desea: ");
+            opcion = sc.nextInt();
 
-    if (articulosComprados == 0) {
-        System.out.println("\nEl carrito está vacío. Cancelando este pedido...");
+            if (opcion >= 0 && opcion < opcionSalir) {
+                productos productoElegido = productos.catalogo.get(opcion);
+
+                if (productoElegido.getStock() == 0) {
+                    System.out.println("\nLo sentimos, no hay suficiente cantidad disponible.");
+                } else {
+                    System.out.println("\nCuantas unidades de " + productoElegido.getNombre() + " desea? (Stock total: " + productoElegido.getStock() + ")");
+                    int cantidad = sc.nextInt();
+
+                    if (productoElegido.verificarDisponibilidad(cantidad)) {
+                        agregarProductos(productoElegido, cantidad);
+                        articulosComprados += cantidad;
+                    } else {
+                        System.out.println("\nLo sentimos, no hay suficiente cantidad disponible.");
+                    }
+                }
+            } else if (opcion != opcionSalir) {
+                System.out.println("\nOpcion no valida, intente de nuevo.");
+            }
+        } while (opcion != opcionSalir);
+
+        if (articulosComprados == 0) {
+            System.out.println("\nEl carrito esta vacio. Cancelando este pedido...");
+        }
     }
-}
 
     // Metodo de agregar objetos
     public void agregarProductos(productos producto, int cantidad){

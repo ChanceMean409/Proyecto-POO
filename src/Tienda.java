@@ -1,4 +1,3 @@
-
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -18,10 +17,11 @@ public class Tienda {
             int opcionAcceso = 1;
             if (!historialUsuarios.isEmpty()) {
                 System.out.println("\n--- ACCESO AL SISTEMA ---");
-                System.out.println("1. Registrar nuevo usuario");
-                System.out.println("2. Iniciar sesión con cuenta existente");
+                System.out.println("1. Registrar nuevo usuario e iniciar sesion");
+                System.out.println("2. Iniciar sesion con cuenta existente");
                 System.out.println("3. Salir");
                 opcionAcceso = sc.nextInt();
+                sc.nextLine();
             }
 
             switch (opcionAcceso) {
@@ -40,7 +40,7 @@ public class Tienda {
                     System.out.println("Saliendo del sistema...");
                     return;
                 default:
-                    System.out.println("Opción inválida.");
+                    System.out.println("Opcion invalida.");
                     puedeEntrar = false;
                     break;
             }
@@ -48,19 +48,24 @@ public class Tienda {
             if (puedeEntrar) {
                 carrito miCarrito = new carrito();
                 miCarrito.comprarBiberes();
-                c.elegirDire(miCarrito);
-        
-            }
+                
+                if (!miCarrito.estaVacio()) {
+                    c.elegirDire(miCarrito);
+                }
 
-            System.out.println("\n---------------------------------------------");
-            System.out.println("¿Desea realizar otra compra en el sistema?");
-            System.out.println("1. Sí, continuar con el mismo usuario (" + c.getNombre() + ")");
-            System.out.println("2. Sí, registrar o acceder con otro usuario");
-            System.out.println("3. No, cerrar sistema");
-            opcionContinuarTienda = sc.nextInt();
+                System.out.println("\n---------------------------------------------");
+                System.out.println("Desea realizar otra compra en el sistema?");
+                System.out.println("1. Si, continuar con el mismo usuario (" + c.getNombre() + ")");
+                System.out.println("2. Si, registrar o acceder con otro usuario");
+                System.out.println("3. No, cerrar sistema");
+                opcionContinuarTienda = sc.nextInt();
+                sc.nextLine();
+            } else {
+                opcionContinuarTienda = 3;
+            }
 
         } while (opcionContinuarTienda == 1 || opcionContinuarTienda == 2);
 
-        System.out.println("\nSistema cerrado correctamente. ¡Gracias por su compra!");
+        System.out.println("\nSistema cerrado correctamente. !Gracias por su compra!");
     }
 }

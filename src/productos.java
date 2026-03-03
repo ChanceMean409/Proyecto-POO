@@ -67,6 +67,9 @@ public class productos {
         return this.precio;
     }
     public String getCategoria() {
-    return this.categoria;
-}
+        return this.categoria;
+    }
+    public int getStock() {
+        return this.stock;
+    }
 }
