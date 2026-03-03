@@ -66,4 +66,7 @@ public class productos {
     public float getPrecio(){
         return this.precio;
     }
+    public String getCategoria() {
+    return this.categoria;
+}
 }
