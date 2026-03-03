@@ -8,7 +8,7 @@ public class cliente {
     private String direccion;
     private float precio;
     public static ArrayList<cliente> lista = new ArrayList<>();
-
+//CONSTRUCTOR SIN ARGUMENTOS (INICIALIZADOS)
     public cliente(){
         nombre="";
         email="";
@@ -16,25 +16,27 @@ public class cliente {
         direccion = "";
         precio = 0;
     }
-    
+//CONSTRUCTOR CON ARGUMENTOS
     public cliente(String direccion, float precio){
         this.direccion=direccion;
         this.precio=precio;
     }
     
+//METODO DE LISTA DE DIRECCIONES LLENADA POR DEFECTO
     public static void lista(){
-        lista.add(new cliente ("Belisario",30));
-        lista.add(new cliente ("20 de noviembre",34));
-        lista.add(new cliente ("San agustin",30));
-        lista.add(new cliente ("Pilita seca",25));
-        lista.add(new cliente ("Miguel aleman",35));
-        lista.add(new cliente ("Cruz grande",35));
-        lista.add(new cliente ("Mariano N. Ruiz",45));
-        lista.add(new cliente ("Zona rosa",50));
-        lista.add(new cliente ("Centro",15));
-        lista.add(new cliente ("Mirador",45));
+        lista.add(new cliente ("Belisario",20));
+        lista.add(new cliente ("20 de noviembre",20));
+        lista.add(new cliente ("San agustin",10));
+        lista.add(new cliente ("Pilita seca",15));
+        lista.add(new cliente ("Miguel aleman",20));
+        lista.add(new cliente ("Cruz grande",20));
+        lista.add(new cliente ("Mariano N. Ruiz",25));
+        lista.add(new cliente ("Zona rosa",30));
+        lista.add(new cliente ("Centro",10));
+        lista.add(new cliente ("Mirador",20));
     }
-    
+ 
+//GETTERS
     public String getNombre(){
         return this.nombre;
     }
@@ -54,7 +56,8 @@ public class cliente {
     public float getPrecio(){
         return precio;
     }
-    
+
+//METODO DE REGISTRO (HISTORIAL DE CLIENTES)
     public void registro(ArrayList<cliente> historialUsuarios){
         Scanner sc = new Scanner(System.in);
         
@@ -81,6 +84,7 @@ public class cliente {
         System.out.println("\nDATOS GUARDADOS CORRECTAMENTE.\n");    
     } 
     
+//METODO PARA SELECCIONAR LA DIRECCION
     public static cliente seleccionarDireccion(int indice) {
         if (indice >= 0 && indice < lista.size()) {
             return lista.get(indice); 
@@ -89,7 +93,8 @@ public class cliente {
         } 
         return null;
     }
-    
+
+//METODO PARA VERIFICAR AL USUARIO CON LIMITE DE INTENTOS
     public boolean verificar(){
         Scanner sc = new Scanner(System.in);
         int contador=0;
@@ -102,7 +107,7 @@ public class cliente {
             String clave=sc.nextLine();
             
             if (correo.equalsIgnoreCase(this.email) && clave.equals(this.contrasena)){
-                System.out.println("Bienvenido "+this.nombre+" !");
+                System.out.println("\nBienvenido "+this.nombre+" !");
                 return true;
             } else {
                 System.out.println("Correo erroneo o contraseña incorrecta");
@@ -114,6 +119,7 @@ public class cliente {
         return false;
     }
     
+//METODO PARA INICIAR SESION CON USUARIO YA EXISTENTE/REGISTRADO
     public cliente iniciarSesionExistente(ArrayList<cliente> historialUsuarios){
         Scanner sc = new Scanner(System.in);
         int contador=0;
@@ -139,4 +145,38 @@ public class cliente {
         System.out.println("Has Alcanzado el limite de Intentos\n ACCESO DENEGADO");
         return null;
     }
+    
+//METODO DE DAR A ELEGIR DIRECCIONES AL USUARIO
+public void elegirDire(carrito miCarrito) {
+    Scanner sc = new Scanner (System.in);
+    boolean compraConfirmada = false;
+    cliente direccionElegida = null;
+
+    do {
+        System.out.println("\n--- Zonas de entrega ---");
+        System.out.println("Se cobraran $15 de envio base");
+        for (int i = 0; i < lista.size(); i++) {
+            cliente l = lista.get(i);
+            System.out.println(i + ". " + l.getDireccion() + " - $" + l.getPrecio());
+        }
+        System.out.println(lista.size() + ". Confirmar compra y dirección");
+        int opcionDireccion = sc.nextInt();
+
+        if (opcionDireccion >= 0 && opcionDireccion < lista.size()) {
+            direccionElegida = lista.get(opcionDireccion);
+            System.out.println("\nHas elegido: " + direccionElegida.getDireccion() + " - $" + direccionElegida.getPrecio());
+            System.out.println("Ahora ingresa " + lista.size() + " para confirmar la compra.\n");
+        } else if (opcionDireccion == lista.size()) {
+            if (direccionElegida != null) {
+                miCarrito.mostrarDetalle(direccionElegida, this.nombre);
+                System.out.println("\n¡Gracias por su compra!");
+                compraConfirmada = true;
+            } else {
+                System.out.println("\nPrimero debes seleccionar una dirección antes de confirmar.");
+            }
+        } else {
+            System.out.println("\nOpción inválida.");
+        }
+    } while (!compraConfirmada);
+}
 }
