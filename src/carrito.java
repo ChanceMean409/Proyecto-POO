@@ -11,7 +11,7 @@ public class carrito {
     // Constructor sin argumentos
     public carrito(){
         this.listaDeProductos = new ArrayList<>();
-        this.costoEnvio = 10;
+        this.costoEnvio = 15;
     }
     
     public boolean estaVacio() {

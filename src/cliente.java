@@ -200,7 +200,6 @@ public class cliente {
                 this.precio = zonaElegida.getPrecio();
                 
                 System.out.println("\nDireccion guardada con exito.");
-                System.out.println("Ahora ingresa " + lista.size() + " para confirmar la compra.\n");
                 
             } else if (opcionDireccion == lista.size()) {
                 if (!this.direccion.equals("")) {
