@@ -5,7 +5,9 @@ public class Tienda {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
-        productos.inventario();
+         Perecederos.inventarioPerecederos();
+         NoPedecederos.inventarioNoPedecederos();
+         productos.generarCatalogo();
         cliente.lista();
 
         ArrayList<cliente> historialUsuarios = new ArrayList<>();
