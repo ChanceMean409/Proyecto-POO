@@ -117,42 +117,19 @@ public class carrito {
             }
             
             // Imprimimos el ticket ya stackeado
-           for (int i = 0; i < nombres.size(); i++) {
-
-    int cant = cantidades.get(i);
-    String nom = nombres.get(i);
-    float precioUnitario = precios.get(i);
-    float subtotalProducto = cant * precioUnitario;
-
-    System.out.print(cant + "x " + nom + " - $" + subtotalProducto + " ($" + precioUnitario + " c/u)");
-
-    // muestra de la caducidad y el empaque en el ticket
-    productos productoEncontrado = null;
-
-    for(productos p : listaDeProductos){
-        if(p.getNombre().equals(nom)){
-            productoEncontrado = p;
-            break;
-        }
-    }
-
-    if(productoEncontrado instanceof Perecederos){
-        Perecederos per = (Perecederos) productoEncontrado;
-        System.out.print(" | Caduca en: " + per.getDiasParaCaducar() + " dias");
-    }
-
-    if(productoEncontrado instanceof NoPedecederos){
-        NoPedecederos np = (NoPedecederos) productoEncontrado;
-        System.out.print(" | Empaque: " + np.getTipoEmpaque());
-    }
-
-    System.out.println();
-}
-            
+            for (int i = 0; i < nombres.size(); i++) {
+                int cant = cantidades.get(i);
+                String nom = nombres.get(i);
+                float precioUnitario = precios.get(i);
+                float subtotalProducto = cant * precioUnitario;
+                
+                System.out.println(cant + "x " + nom + " - $" + subtotalProducto + " ($" + precioUnitario + " c/u)");
+            }
             System.out.println("---------------------------------");
             System.out.println("Costo de envio base : $" + costoEnvio);
             System.out.println("Costo con direccion (" + direccionElegida.getDireccion() + ") : $" + direccionElegida.getPrecio());
             System.out.println("---------------------------------");
             System.out.println("TOTAL A PAGAR: $" + calcularTotal(direccionElegida));
         }
-    }}
+    }
+}
