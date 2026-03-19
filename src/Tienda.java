@@ -1,13 +1,10 @@
 import java.util.ArrayList;
 import java.util.Scanner;
-
 public class Tienda {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
-         Perecederos.inventarioPerecederos();
-         NoPedecederos.inventarioNoPedecederos();
-         productos.generarCatalogo();
+        productos.inventario();
         cliente.lista();
 
         ArrayList<cliente> historialUsuarios = new ArrayList<>();
@@ -57,13 +54,53 @@ public class Tienda {
 
             // Inicia el proceso de compra si el acceso fue exitoso
             if (puedeEntrar) {
-                carrito miCarrito = new carrito();
-                miCarrito.comprarBiberes();
-                
-                // Verifica que el carrito no este vacio para pedir direccion
-                if (!miCarrito.estaVacio()) {
-                    c.elegirDire(miCarrito);
-                }
+
+                carrito miCarrito = new carrito(); 
+
+                int opcionMenu;
+
+                do {
+                    System.out.println("\n========= TIENDA =========");
+                    System.out.println("1. Comprar Perecederos");
+                    System.out.println("2. Comprar No Perecederos");
+                    System.out.println("4. Finalizar compra");
+                    System.out.println("5. Salir");
+                    System.out.print("Seleccione una opcion: ");
+
+                    opcionMenu = sc.nextInt();
+                    sc.nextLine();
+
+                    switch(opcionMenu){
+                        case 1:
+                            Perecederos.mostrarPerecederos(miCarrito);
+                            break;
+
+                        case 2:
+                            NoPedecederos.mostrarNoPerecederos(miCarrito);
+                            break;
+
+                        case 4:
+    if (!miCarrito.estaVacio()) {
+
+        // Elegir direccion
+        c.elegirDire(miCarrito);
+
+        // MOSTRAR TICKET
+        miCarrito.mostrarDetalle(c, c.getNombre());
+
+    } else {
+        System.out.println("El carrito esta vacio.");
+    }
+    break;
+                        case 5:
+                            System.out.println("SALIENDO...");
+                            break;
+
+                        default:
+                            System.out.println("Opcion invalida");
+                    }
+
+                } while(opcionMenu != 5);
 
                 // Muestra opciones para nueva compra y valida entrada
                 do {
