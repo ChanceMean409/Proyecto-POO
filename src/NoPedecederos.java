@@ -1,27 +1,67 @@
+import java.util.ArrayList;
+import java.util.Scanner;
+
 public class NoPedecederos extends productos {
-    private String tipoDeEmpaque ;
-    
-    public NoPedecederos(String nombre,float precio, int stock, String categoria, String tipoDeEmpaque){
-    super(nombre, precio, stock, categoria);
-    this.tipoDeEmpaque=tipoDeEmpaque ;
-    }
-    
-    public String tipoDeEmpaque(){
-    return tipoDeEmpaque ;
-    }
-    // inventario de no pedecederos
-    public static void inventarioNoPedecederos(){
 
-        if(!listaNoPerecederos.isEmpty()) return;
+    private String tipoDeEmpaque;
 
-        listaNoPerecederos.add(new NoPedecederos("Atun en agua",25,20,"Enlatados","Lata"));
-        listaNoPerecederos.add(new NoPedecederos("Atun en aceite",35,25,"Enlatados","Lata"));
-        listaNoPerecederos.add(new NoPedecederos("Mayonesa",35,10,"Enlatados","Frasco"));
-        listaNoPerecederos.add(new NoPedecederos("Pan de elote (2 piezas)",15,59,"Harinas","Bolsa"));
-        listaNoPerecederos.add(new NoPedecederos("Sopa",7,48,"Harinas","Bolsa"));
+    public NoPedecederos(String nombre, float precio, int stock, String categoria, String tipoDeEmpaque) {
+        super(nombre, precio, stock, categoria);
+        this.tipoDeEmpaque = tipoDeEmpaque;
     }
-// metodo para el carrito
-   public String getTipoEmpaque(){
-    return tipoDeEmpaque;
+
+    public String getTipoDeEmpaque() {
+        return tipoDeEmpaque;
+    }
+
+    // compra 
+    public static void mostrarNoPerecederos(carrito miCarrito) {
+        Scanner sc = new Scanner(System.in);
+        int opcion;
+
+        ArrayList<NoPedecederos> lista = new ArrayList<>();
+
+        do {
+            System.out.println("\n--- PRODUCTOS NO PERECEDEROS ---");
+
+            lista.clear();
+            int index = 0;
+
+            for (productos p : catalogo) {
+                if (p instanceof NoPedecederos) {
+                    NoPedecederos np = (NoPedecederos) p;
+
+                    lista.add(np);
+
+                    System.out.println(
+                        index + ". " +
+                        p.getNombre() +
+                        " - $" + p.getPrecio() +
+                        " | Stock: " + p.getStock() +
+                        " | Empaque: " + np.getTipoDeEmpaque()
+                    );
+
+                    index++;
+                }
+            }
+
+            System.out.println(index + ". Salir");
+            System.out.print("Seleccione producto: ");
+            opcion = sc.nextInt();
+
+            if (opcion >= 0 && opcion < lista.size()) {
+                NoPedecederos seleccionado = lista.get(opcion);
+
+                System.out.print("Cantidad: ");
+                int cantidad = sc.nextInt();
+
+                if (seleccionado.verificarDisponibilidad(cantidad)) {
+                    miCarrito.agregarProductos(seleccionado, cantidad);
+                } else {
+                    System.out.println("No hay suficiente stock.");
+                }
+            }
+
+        } while (opcion != lista.size()); 
+    }
 }
-    }
