@@ -1,4 +1,3 @@
-
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -14,53 +13,64 @@ public class Perecederos extends productos {
     public String getFechaCaducidad() {
         return fechaCaducidad;
     }
-// compra 
-   public static void mostrarPerecederos(carrito miCarrito) {
-    Scanner sc = new Scanner(System.in);
-    int opcion;
 
-    ArrayList<Perecederos> lista = new ArrayList<>();
+    // compra 
+    public static void mostrarPerecederos(carrito miCarrito) {
+        Scanner sc = new Scanner(System.in);
+        int opcion;
 
-    do {
-        System.out.println("\n--- PRODUCTOS PERECEDEROS ---");
+        ArrayList<Perecederos> lista = new ArrayList<>();
 
-        lista.clear();
-        int index = 0;
+        do {
+            System.out.println("\n--- PRODUCTOS PERECEDEROS ---");
 
-        for (productos p : catalogo) {
-            if (p instanceof Perecederos) {
-                Perecederos per = (Perecederos) p;
+            lista.clear();
+            int index = 0;
 
-                lista.add(per);
+            for (productos p : catalogo) {
+                if (p instanceof Perecederos) {
+                    Perecederos per = (Perecederos) p;
 
-                System.out.println(
-                    index + ". " +
-                    p.getNombre() +
-                    " - $" + p.getPrecio() +
-                    " | Stock: " + p.getStock() +
-                    " | Caduca: " + per.getFechaCaducidad()
-                );
+                    lista.add(per);
 
-                index++;
+                    System.out.println(
+                        index + ". " +
+                        p.getNombre() +
+                        " - $" + p.getPrecio() +
+                        " | Stock: " + p.getStock() +
+                        " | Caduca: " + per.getFechaCaducidad()
+                    );
+
+                    index++;
+                }
             }
-        }
 
-        System.out.println(index + ". Salir");
-        System.out.print("Seleccione producto: ");
-        opcion = sc.nextInt();
+            System.out.println(index + ". Salir");
+            System.out.print("Seleccione producto: ");
+            opcion = sc.nextInt();
 
-        if (opcion >= 0 && opcion < lista.size()) {
-            Perecederos seleccionado = lista.get(opcion);
+            if (opcion >= 0 && opcion < lista.size()) {
+                Perecederos seleccionado = lista.get(opcion);
 
-            System.out.print("Cantidad: ");
-            int cantidad = sc.nextInt();
+                System.out.print("Cantidad: ");
+                int cantidad = sc.nextInt();
 
-            if (seleccionado.verificarDisponibilidad(cantidad)) {
-                miCarrito.agregarProductos(seleccionado, cantidad);
-            } else {
-                System.out.println("No hay suficiente stock.");
+                // Validación de cantidad
+                if (cantidad > 0) {
+                    if (seleccionado.verificarDisponibilidad(cantidad)) {
+                        miCarrito.agregarProductos(seleccionado, cantidad);
+                    } else {
+                        System.out.println("\nLo sentimos, no hay suficiente stock.");
+                    }
+                } else {
+                    System.out.println("\nPor favor, ingrese una cantidad mayor a 0.");
+                }
+                
+            // Validación de opción incorrecta
+            } else if (opcion != lista.size()) {
+                System.out.println("\nOpcion no valida. Intente de nuevo.");
             }
-        }
 
-    } while (opcion != lista.size()); 
-}}
+        } while (opcion != lista.size()); 
+    }
+}

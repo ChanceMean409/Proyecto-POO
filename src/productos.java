@@ -1,9 +1,9 @@
 import java.util.ArrayList;
 public class productos {
-    private String nombre;
-    private float precio;
-    private int stock;
-    private String categoria;
+    protected String nombre;
+    protected float precio;
+    protected int stock;
+    protected String categoria;
     //LISTA de productos
     public static ArrayList<productos> catalogo=new ArrayList<>();
     // CONSTRUCTOR sin argumentos (producto ya definido)
@@ -52,12 +52,6 @@ public class productos {
         catalogo.add(new NoPedecederos("Bolsas de basura", 3, 35, "Limpieza", "Rollo con banda de papel"));
         catalogo.add(new NoPedecederos("Velas blancas", 5, 10, "Hogar", "Paquete de celofán"));
     } 
-       public static void mostrarCatalogo() {
-        System.out.println("\n--- TODOS LOS PRODUCTOS ---");
-        for (productos p : catalogo) {
-            System.out.println(p.getNombre() + " - $" + p.getPrecio());
-        }
-    }
     // METODO para verificar disponibilidad
     public boolean verificarDisponibilidad(int inventario) {
         if (inventario > 0 && stock >= inventario) {

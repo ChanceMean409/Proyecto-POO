@@ -63,8 +63,8 @@ public class Tienda {
                     System.out.println("\n========= TIENDA =========");
                     System.out.println("1. Comprar Perecederos");
                     System.out.println("2. Comprar No Perecederos");
-                    System.out.println("4. Finalizar compra");
-                    System.out.println("5. Salir");
+                    System.out.println("3. Finalizar compra");
+                    System.out.println("4. Salir");
                     System.out.print("Seleccione una opcion: ");
 
                     opcionMenu = sc.nextInt();
@@ -79,20 +79,17 @@ public class Tienda {
                             NoPedecederos.mostrarNoPerecederos(miCarrito);
                             break;
 
-                        case 4:
+                        case 3:
     if (!miCarrito.estaVacio()) {
 
         // Elegir direccion
         c.elegirDire(miCarrito);
-
-        // MOSTRAR TICKET
-        miCarrito.mostrarDetalle(c, c.getNombre());
-
+        opcionMenu=4;
     } else {
-        System.out.println("El carrito esta vacio.");
+        System.out.println("El carrito esta vacio. !Ve a los pasillos 1 o 2 para agregar productos antes de pagar!");
     }
     break;
-                        case 5:
+                        case 4:
                             System.out.println("SALIENDO...");
                             break;
 
@@ -100,7 +97,7 @@ public class Tienda {
                             System.out.println("Opcion invalida");
                     }
 
-                } while(opcionMenu != 5);
+                } while(opcionMenu != 4);
 
                 // Muestra opciones para nueva compra y valida entrada
                 do {

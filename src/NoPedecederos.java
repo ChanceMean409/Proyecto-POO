@@ -55,11 +55,20 @@ public class NoPedecederos extends productos {
                 System.out.print("Cantidad: ");
                 int cantidad = sc.nextInt();
 
-                if (seleccionado.verificarDisponibilidad(cantidad)) {
-                    miCarrito.agregarProductos(seleccionado, cantidad);
+                // Validación de cantidad
+                if (cantidad > 0) {
+                    if (seleccionado.verificarDisponibilidad(cantidad)) {
+                        miCarrito.agregarProductos(seleccionado, cantidad);
+                    } else {
+                        System.out.println("\nLo sentimos, no hay suficiente stock.");
+                    }
                 } else {
-                    System.out.println("No hay suficiente stock.");
+                    System.out.println("\nPor favor, ingrese una cantidad mayor a 0.");
                 }
+                
+            // Validación de opción incorrecta
+            } else if (opcion != lista.size()) {
+                System.out.println("\nOpcion no valida. Intente de nuevo.");
             }
 
         } while (opcion != lista.size()); 

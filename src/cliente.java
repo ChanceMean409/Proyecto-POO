@@ -172,6 +172,18 @@ public class cliente {
                     System.out.println("\n!Gracias por su compra!");
                     compraConfirmada = true;
                     continue;
+                    
+                // VALIDACIÓN: Si elige 2, BORRAMOS la dirección vieja de la memoria
+                } else if (opcionGuardada == 2) {
+                    this.direccion = "";
+                    this.precio = 0;
+                    System.out.println("\nDireccion anterior descartada. Por favor, elige una nueva zona.");
+                    
+                // VALIDACIÓN: Si teclean algo diferente a 1 o 2
+                } else {
+                    this.direccion = ""; // Por seguridad, la borramos si se equivocan
+                    this.precio = 0;
+                    System.out.println("\nOpcion invalida. Mostrando zonas de entrega...");
                 }
             }
 
@@ -185,6 +197,7 @@ public class cliente {
             }
             
             System.out.println(lista.size() + ". Confirmar compra y direccion");
+            System.out.print("Seleccione una opcion: ");
             int opcionDireccion = sc.nextInt();
             sc.nextLine();
 
@@ -195,11 +208,15 @@ public class cliente {
                 System.out.println("Ingresa tu direccion especifica (Calle, Numero, Cruzamientos):");
                 String calleEspecifica = sc.nextLine();
                 
-                // Guarda la direccion y precio
-                this.direccion = zonaElegida.getDireccion() + " - " + calleEspecifica;
-                this.precio = zonaElegida.getPrecio();
-                
-                System.out.println("\nDireccion guardada con exito.");
+                // VALIDACIÓN: Evitar que el cliente deje la calle en blanco
+                if (calleEspecifica.trim().isEmpty()) {
+                    System.out.println("\nError: La direccion especifica no puede estar vacia. Intentalo de nuevo.");
+                } else {
+                    // Guarda la direccion y precio
+                    this.direccion = zonaElegida.getDireccion() + " - " + calleEspecifica;
+                    this.precio = zonaElegida.getPrecio();
+                    System.out.println("\nDireccion guardada con exito. Ahora selecciona la opcion de Confirmar compra.");
+                }
                 
             } else if (opcionDireccion == lista.size()) {
                 if (!this.direccion.equals("")) {
@@ -211,7 +228,7 @@ public class cliente {
                     System.out.println("\nPrimero debes seleccionar una zona y proporcionar tu direccion antes de confirmar.");
                 }
             } else {
-                System.out.println("\nOpcion invalida.");
+                System.out.println("\nOpcion invalida. Por favor selecciona un numero de la lista.");
             }
         } while (!compraConfirmada);
     }
