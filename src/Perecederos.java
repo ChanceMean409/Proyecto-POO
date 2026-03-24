@@ -1,38 +1,27 @@
 import java.util.ArrayList;
 import java.util.Scanner;
-
 public class Perecederos extends productos {
-
     private String fechaCaducidad;
-
     public Perecederos(String nombre, float precio, int stock, String categoria, String fechaCaducidad) {
         super(nombre, precio, stock, categoria);
         this.fechaCaducidad = fechaCaducidad;
     }
-
     public String getFechaCaducidad() {
         return fechaCaducidad;
     }
-
     // compra 
     public static void mostrarPerecederos(carrito miCarrito) {
         Scanner sc = new Scanner(System.in);
         int opcion;
-
         ArrayList<Perecederos> lista = new ArrayList<>();
-
         do {
             System.out.println("\n--- PRODUCTOS PERECEDEROS ---");
-
             lista.clear();
             int index = 0;
-
             for (productos p : catalogo) {
                 if (p instanceof Perecederos) {
                     Perecederos per = (Perecederos) p;
-
                     lista.add(per);
-
                     System.out.println(
                         index + ". " +
                         p.getNombre() +
@@ -40,21 +29,16 @@ public class Perecederos extends productos {
                         " | Stock: " + p.getStock() +
                         " | Caduca: " + per.getFechaCaducidad()
                     );
-
                     index++;
                 }
             }
-
             System.out.println(index + ". Salir");
             System.out.print("Seleccione producto: ");
             opcion = sc.nextInt();
-
             if (opcion >= 0 && opcion < lista.size()) {
                 Perecederos seleccionado = lista.get(opcion);
-
                 System.out.print("Cantidad: ");
                 int cantidad = sc.nextInt();
-
                 // --- VALIDACIÓN DE CANTIDAD ---
                 if (cantidad > 0) {
                     if (seleccionado.verificarDisponibilidad(cantidad)) {
@@ -67,13 +51,10 @@ public class Perecederos extends productos {
                 } else {
                     System.out.println("\nError: Por favor, ingrese una cantidad valida (mayor a 0).");
                 }
-                // ------------------------------
-                
             // Validación de opción incorrecta
             } else if (opcion != lista.size()) {
                 System.out.println("\nOpcion no valida. Intente de nuevo.");
             }
-
         } while (opcion != lista.size()); 
     }
 }
