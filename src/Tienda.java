@@ -1,31 +1,36 @@
 import java.util.ArrayList;
 import java.util.Scanner;
+
 public class Tienda {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
+        // ==========================================
+        // 1. INICIALIZACIÓN DE DATOS GLOBALES
+        // ==========================================
         productos.inventario();
         cliente.lista();
 
+        // ==========================================
+        // 2. VARIABLES DE SESIÓN 
+        // ==========================================
         ArrayList<cliente> historialUsuarios = new ArrayList<>();
-        cliente c = null;
+        cliente c = null; 
         boolean puedeEntrar = false;
-        int opcionContinuarTienda = 0; // Inicializa la variable
+        int opcionContinuarTienda = 0; 
 
         do {
-            // Verifica si el usuario pidio continuar con la misma cuenta
             if (opcionContinuarTienda != 1) {
                 int opcionAcceso = 1;
                 
-                // Muestra el menu de acceso si hay usuarios registrados y valida entrada
                 if (!historialUsuarios.isEmpty()) {
                     do {
                         System.out.println("\n--- ACCESO AL SISTEMA ---");
                         System.out.println("1. Registrar nuevo usuario");
-                        System.out.println("2. Iniciar sesion con cuenta existente");
+                        System.out.println("2. Inicie sesion con cuenta existente");
                         System.out.println("3. Salir");
                         opcionAcceso = sc.nextInt();
-                        sc.nextLine(); // Limpia el buffer
+                        sc.nextLine(); 
                         
                         if (opcionAcceso < 1 || opcionAcceso > 3) {
                             System.out.println("Opcion invalida. Intente de nuevo.");
@@ -33,7 +38,9 @@ public class Tienda {
                     } while (opcionAcceso < 1 || opcionAcceso > 3);
                 }
 
-                // Procesa la opcion de acceso elegida
+                // ==========================================
+                // 3. INSTANCIACIÓN DE USUARIOS
+                // ==========================================
                 switch (opcionAcceso) {
                     case 1:
                         c = new cliente();
@@ -52,11 +59,12 @@ public class Tienda {
                 }
             }
 
-            // Inicia el proceso de compra si el acceso fue exitoso
+            // ==========================================
+            // 4. FLUJO DE COMPRA 
+            // ==========================================
             if (puedeEntrar) {
 
                 carrito miCarrito = new carrito(); 
-
                 int opcionMenu;
 
                 do {
@@ -80,15 +88,14 @@ public class Tienda {
                             break;
 
                         case 3:
-    if (!miCarrito.estaVacio()) {
+                            if (!miCarrito.estaVacio()) {
+                                c.elegirDire(miCarrito);
+                                opcionMenu=4; 
+                            } else {
+                                System.out.println("El carrito esta vacio. !Ve a los pasillos 1 o 2 para agregar productos antes de pagar!");
+                            }
+                            break;
 
-        // Elegir direccion
-        c.elegirDire(miCarrito);
-        opcionMenu=4;
-    } else {
-        System.out.println("El carrito esta vacio. !Ve a los pasillos 1 o 2 para agregar productos antes de pagar!");
-    }
-    break;
                         case 4:
                             System.out.println("SALIENDO...");
                             break;
@@ -99,7 +106,9 @@ public class Tienda {
 
                 } while(opcionMenu != 4);
 
-                // Muestra opciones para nueva compra y valida entrada
+                // ==========================================
+                // 5. CIERRE DE SESIÓN
+                // ==========================================
                 do {
                     System.out.println("\n---------------------------------------------");
                     System.out.println("Desea realizar otra compra en el sistema?");

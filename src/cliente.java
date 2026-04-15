@@ -2,66 +2,54 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class cliente {
-    // Definicion de atributos de la clase
+    
+    // ==========================================
+    // 1. ATRIBUTOS
+    // ==========================================
     private String nombre;
     private String email;
     private String contrasena;
     private String direccion;
     private float precio;
+    
     public static ArrayList<cliente> lista = new ArrayList<>();
 
-    // Constructor sin argumentos
-    public cliente(){
-        nombre="";
-        email="";
-        contrasena="";
+    // ==========================================
+    // 2. CONSTRUCTORES
+    // ==========================================
+    public cliente() {
+        nombre = "";
+        email = "";
+        contrasena = "";
         direccion = "";
         precio = 0;
     }
 
-    // Constructor con argumentos
-    public cliente(String direccion, float precio){
-        this.direccion=direccion;
-        this.precio=precio;
+    public cliente(String direccion, float precio) {
+        this.direccion = direccion;
+        this.precio = precio;
     }
     
-    // Metodo de lista de direcciones
-    public static void lista(){
-        lista.add(new cliente ("Belisario",20));
-        lista.add(new cliente ("20 de noviembre",20));
-        lista.add(new cliente ("San agustin",10));
-        lista.add(new cliente ("Pilita seca",15));
-        lista.add(new cliente ("Miguel aleman",20));
-        lista.add(new cliente ("Cruz grande",20));
-        lista.add(new cliente ("Mariano N. Ruiz",25));
-        lista.add(new cliente ("Zona rosa",30));
-        lista.add(new cliente ("Centro",10));
-        lista.add(new cliente ("Mirador",20));
+    // ==========================================
+    // 3. BASE DE DATOS DE ZONAS
+    // ==========================================
+    public static void lista() {
+        lista.add(new cliente("Belisario", 20));
+        lista.add(new cliente("20 de noviembre", 20));
+        lista.add(new cliente("San agustin", 10));
+        lista.add(new cliente("Pilita seca", 15));
+        lista.add(new cliente("Miguel aleman", 20));
+        lista.add(new cliente("Cruz grande", 20));
+        lista.add(new cliente("Mariano N. Ruiz", 25));
+        lista.add(new cliente("Zona rosa", 30));
+        lista.add(new cliente("Centro", 10));
+        lista.add(new cliente("Mirador", 20));
     }
  
-    // Getters
-    public String getNombre(){
-        return this.nombre;
-    }
-    
-    public String getEmail(){
-        return this.email;
-    }
-    
-    public String getContrasena(){
-        return this.contrasena;
-    }
-    
-    public String getDireccion(){
-        return direccion;
-    }
-    
-    public float getPrecio(){
-        return precio;
-    }
-
-    // Metodo de registro
-    public void registro(ArrayList<cliente> historialUsuarios){
+    // ==========================================
+    // 4. MÉTODOS DE AUTENTICACIÓN Y REGISTRO
+    // ==========================================
+    public void registro(ArrayList<cliente> historialUsuarios) {
         Scanner sc = new Scanner(System.in);
         
         System.out.println("Ingrese su nombre:");
@@ -73,7 +61,6 @@ public class cliente {
             System.out.println("Ingrese su Email:");
             this.email = sc.nextLine();
             
-            // Verifica si el correo ya existe
             for (cliente usuarioGuardado : historialUsuarios) {
                 if (usuarioGuardado.getEmail().equalsIgnoreCase(this.email)) {
                     System.out.println("Ese email ya esta en uso, utilice otro.\n");
@@ -88,7 +75,59 @@ public class cliente {
         System.out.println("\nDATOS GUARDADOS CORRECTAMENTE.\n");    
     } 
     
-    // Metodo para seleccionar la direccion
+    public boolean verificar() {
+        Scanner sc = new Scanner(System.in);
+        int contador = 0;
+        int maxContador = 3;
+        do {
+            System.out.println("\nInicie sesion");
+            System.out.println("Ingrese su Email:");
+            String correo = sc.nextLine();
+            System.out.println("Ingrese su Contrasena:");
+            String clave = sc.nextLine();
+            
+            if (correo.equalsIgnoreCase(this.email) && clave.equals(this.contrasena)) {
+                System.out.println("\nBienvenido " + this.nombre + " !");
+                return true;
+            } else {
+                System.out.println("Correo erroneo o contrasena incorrecta");
+                contador++;
+            }
+        } while (contador < maxContador);
+        
+        System.out.println("Has Alcanzado el limite de Intentos\n ACCESO DENEGADO");
+        return false;
+    }
+    
+    public cliente iniciarSesionExistente(ArrayList<cliente> historialUsuarios) {
+        Scanner sc = new Scanner(System.in);
+        int contador = 0;
+        int maxContador = 3;
+        do {
+            System.out.println("\nInicie sesion con cuenta existente");
+            System.out.println("Ingrese su Email:");
+            String correo = sc.nextLine();
+            System.out.println("Ingrese su Contrasena:");
+            String clave = sc.nextLine();
+            
+            for (cliente usuarioGuardado : historialUsuarios) {
+                if (usuarioGuardado.getEmail().equalsIgnoreCase(correo) && usuarioGuardado.getContrasena().equals(clave)) {
+                    System.out.println("Bienvenido de nuevo " + usuarioGuardado.getNombre() + " !");
+                    return usuarioGuardado;
+                }
+            }
+            System.out.println("Correo erroneo o contrasena incorrecta");
+            contador++;
+            
+        } while (contador < maxContador);
+        
+        System.out.println("Has Alcanzado el limite de Intentos\n ACCESO DENEGADO");
+        return null;
+    }
+    
+    // ==========================================
+    // 5. MÉTODOS DE DIRECCIÓN Y ENVÍO
+    // ==========================================
     public static cliente seleccionarDireccion(int indice) {
         if (indice >= 0 && indice < lista.size()) {
             return lista.get(indice); 
@@ -98,67 +137,11 @@ public class cliente {
         return null;
     }
 
-    // Metodo para verificar al usuario
-    public boolean verificar(){
-        Scanner sc = new Scanner(System.in);
-        int contador=0;
-        int maxContador=3;
-        do{
-            System.out.println("\nInicie sesion");
-            System.out.println("Ingrese su Email:");
-            String correo=sc.nextLine();
-            System.out.println("Ingrese su Contrasena:");
-            String clave=sc.nextLine();
-            
-            // Verifica las credenciales
-            if (correo.equalsIgnoreCase(this.email) && clave.equals(this.contrasena)){
-                System.out.println("\nBienvenido "+this.nombre+" !");
-                return true;
-            } else {
-                System.out.println("Correo erroneo o contrasena incorrecta");
-                contador++;
-            }
-        } while (contador<maxContador);
-        
-        System.out.println("Has Alcanzado el limite de Intentos\n ACCESO DENEGADO");
-        return false;
-    }
-    
-    // Metodo para iniciar sesion con usuario existente
-    public cliente iniciarSesionExistente(ArrayList<cliente> historialUsuarios){
-        Scanner sc = new Scanner(System.in);
-        int contador=0;
-        int maxContador=3;
-        do{
-            System.out.println("\nInicie sesion con cuenta existente");
-            System.out.println("Ingrese su Email:");
-            String correo=sc.nextLine();
-            System.out.println("Ingrese su Contrasena:");
-            String clave=sc.nextLine();
-            
-            // Busca las credenciales en el historial
-            for (cliente usuarioGuardado : historialUsuarios) {
-                if (usuarioGuardado.getEmail().equalsIgnoreCase(correo) && usuarioGuardado.getContrasena().equals(clave)){
-                    System.out.println("Bienvenido de nuevo "+usuarioGuardado.getNombre()+" !");
-                    return usuarioGuardado;
-                }
-            }
-            System.out.println("Correo erroneo o contrasena incorrecta");
-            contador++;
-            
-        } while (contador<maxContador);
-        
-        System.out.println("Has Alcanzado el limite de Intentos\n ACCESO DENEGADO");
-        return null;
-    }
-    
-    // Metodo para elegir y guardar direccion
     public void elegirDire(carrito miCarrito) {
-        Scanner sc = new Scanner (System.in);
+        Scanner sc = new Scanner(System.in);
         boolean compraConfirmada = false;
 
         do {
-            // Verifica si hay una direccion previa
             if (!this.direccion.equals("")) {
                 System.out.println("\nTienes una direccion guardada: " + this.direccion);
                 System.out.println("Deseas usar esta direccion para tu pedido?");
@@ -173,15 +156,13 @@ public class cliente {
                     compraConfirmada = true;
                     continue;
                     
-                // VALIDACIÓN: Si elige 2, BORRAMOS la dirección vieja de la memoria
                 } else if (opcionGuardada == 2) {
                     this.direccion = "";
                     this.precio = 0;
                     System.out.println("\nDireccion anterior descartada. Por favor, elige una nueva zona.");
                     
-                // VALIDACIÓN: Si teclean algo diferente a 1 o 2
                 } else {
-                    this.direccion = ""; // Por seguridad, la borramos si se equivocan
+                    this.direccion = ""; 
                     this.precio = 0;
                     System.out.println("\nOpcion invalida. Mostrando zonas de entrega...");
                 }
@@ -190,7 +171,6 @@ public class cliente {
             System.out.println("\n--- Zonas de entrega ---");
             System.out.println("Se cobraran $15 de envio base");
             
-            // Muestra las zonas disponibles
             for (int i = 0; i < lista.size(); i++) {
                 cliente l = lista.get(i);
                 System.out.println(i + ". " + l.getDireccion() + " - $" + l.getPrecio());
@@ -208,11 +188,9 @@ public class cliente {
                 System.out.println("Ingresa tu direccion especifica (Calle, Numero, Cruzamientos):");
                 String calleEspecifica = sc.nextLine();
                 
-                // VALIDACIÓN: Evitar que el cliente deje la calle en blanco
                 if (calleEspecifica.trim().isEmpty()) {
                     System.out.println("\nError: La direccion especifica no puede estar vacia. Intentalo de nuevo.");
                 } else {
-                    // Guarda la direccion y precio
                     this.direccion = zonaElegida.getDireccion() + " - " + calleEspecifica;
                     this.precio = zonaElegida.getPrecio();
                     System.out.println("\nDireccion guardada con exito. Ahora selecciona la opcion de Confirmar compra.");
@@ -220,7 +198,6 @@ public class cliente {
                 
             } else if (opcionDireccion == lista.size()) {
                 if (!this.direccion.equals("")) {
-                    // Muestra el detalle de la compra
                     miCarrito.mostrarDetalle(this, this.nombre);
                     System.out.println("\n!Gracias por su compra!");
                     compraConfirmada = true;
@@ -232,4 +209,13 @@ public class cliente {
             }
         } while (!compraConfirmada);
     }
+
+    // ==========================================
+    // 6. GETTERS
+    // ==========================================
+    public String getNombre() { return this.nombre; }
+    public String getEmail() { return this.email; }
+    public String getContrasena() { return this.contrasena; }
+    public String getDireccion() { return direccion; }
+    public float getPrecio() { return precio; }
 }
