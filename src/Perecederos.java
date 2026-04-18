@@ -3,33 +3,21 @@ import java.util.Scanner;
 
 public class Perecederos extends productos {
 
-    // ==========================================
-    // 1. ATRIBUTOS
-    // ==========================================
     private String fechaCaducidad;
 
-    // ==========================================
-    // 2. CONSTRUCTORES
-    // ==========================================
     public Perecederos(String nombre, float precio, int stock, String categoria, String fechaCaducidad) {
         super(nombre, precio, stock, categoria);
         this.fechaCaducidad = fechaCaducidad;
     }
 
-    // ==========================================
-    // 3. POLIMORFISMO 
-    // ==========================================
-    @Override 
+    @Override
     public String obtenerDetalles() {
         return super.obtenerDetalles() + " | Caduca: " + this.fechaCaducidad;
     }
 
-    // ==========================================
-    // 4. MÉTODOS DE COMPRA 
-    // ==========================================
     public static void mostrarPerecederos(carrito miCarrito) {
         Scanner sc = new Scanner(System.in);
-        int opcion;
+        int opcion = -1; 
         ArrayList<Perecederos> lista = new ArrayList<>();
 
         do {
@@ -41,7 +29,6 @@ public class Perecederos extends productos {
                 if (p instanceof Perecederos) {
                     Perecederos per = (Perecederos) p;
                     lista.add(per);
-
                     System.out.println(index + ". " + p.obtenerDetalles());
                     index++;
                 }
@@ -49,35 +36,51 @@ public class Perecederos extends productos {
 
             System.out.println(index + ". Salir");
             System.out.print("Seleccione producto: ");
-            opcion = sc.nextInt();
+            
+            // --- Validacion de caracteres y decimales ---
+            try {
+                opcion = Integer.parseInt(sc.nextLine());
+            } catch (NumberFormatException e) {
+                opcion = -1; 
+            }
 
             if (opcion >= 0 && opcion < lista.size()) {
                 Perecederos seleccionado = lista.get(opcion);
-                System.out.print("Cantidad: ");
-                int cantidad = sc.nextInt();
+                
+                int cantidad = -1;
+                boolean cantidadValida = false;
 
-                if (cantidad > 0) {
-                    if (seleccionado.verificarDisponibilidad(cantidad)) {
-                        miCarrito.agregarProductos(seleccionado, cantidad);
-                    } else {
-                        System.out.println("\nLo sentimos, no hay suficiente stock.");
+                // Bloqueamos al usuario hasta que de una cantidad real o cancele con 0
+                while (!cantidadValida) {
+                    System.out.print("Cantidad para " + seleccionado.getNombre() + " (0 para cancelar): ");
+                    
+                    // --- Validacion de caracteres y decimales ---
+                    try {
+                        cantidad = Integer.parseInt(sc.nextLine());
+                    } catch (NumberFormatException e) {
+                        cantidad = -1; 
                     }
-                } else if (cantidad == 0) {
-                    System.out.println("\nSeleccion cancelada: No se agregaron productos.");
-                } else {
-                    System.out.println("\nError: Ingrese una cantidad valida (mayor a 0).");
+
+                    if (cantidad > 0) {
+                        if (seleccionado.verificarDisponibilidad(cantidad)) {
+                            miCarrito.agregarProductos(seleccionado, cantidad);
+                            cantidadValida = true;
+                        } else {
+                            System.out.println("\nLo sentimos, no hay suficiente stock.");
+                        }
+                    } else if (cantidad == 0) {
+                        System.out.println("\nSeleccion cancelada.");
+                        cantidadValida = true;
+                    } else {
+                        System.out.println("\nError: Ingrese una cantidad valida (un numero entero mayor o igual a 0).");
+                    }
                 }
 
             } else if (opcion != lista.size()) {
-                System.out.println("\nOpcion no valida. Intente de nuevo.");
+                System.out.println("\nOpcion no valida. Ingrese un numero de la lista.");
             }
         } while (opcion != lista.size()); 
     }
 
-    // ==========================================
-    // 5. GETTERS
-    // ==========================================
-    public String getFechaCaducidad() {
-        return fechaCaducidad;
-    }
+    public String getFechaCaducidad() { return fechaCaducidad; }
 }

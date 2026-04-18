@@ -51,7 +51,6 @@ public class cliente {
     // ==========================================
     public void registro(ArrayList<cliente> historialUsuarios) {
         Scanner sc = new Scanner(System.in);
-        
         System.out.println("Ingrese su nombre:");
         this.nombre = sc.nextLine();
         
@@ -63,7 +62,7 @@ public class cliente {
             
             for (cliente usuarioGuardado : historialUsuarios) {
                 if (usuarioGuardado.getEmail().equalsIgnoreCase(this.email)) {
-                    System.out.println("Ese email ya esta en uso, utilice otro.\n");
+                    System.out.println("Ese email ya esta en uso.\n");
                     enUso = true;
                     break; 
                 }
@@ -72,7 +71,6 @@ public class cliente {
         
         System.out.println("Ingrese contrasena:");
         this.contrasena = sc.nextLine();
-        System.out.println("\nDATOS GUARDADOS CORRECTAMENTE.\n");    
     } 
     
     public boolean verificar() {
@@ -90,12 +88,11 @@ public class cliente {
                 System.out.println("\nBienvenido " + this.nombre + " !");
                 return true;
             } else {
-                System.out.println("Correo erroneo o contrasena incorrecta");
+                System.out.println("Datos incorrectos.");
                 contador++;
             }
         } while (contador < maxContador);
         
-        System.out.println("Has Alcanzado el limite de Intentos\n ACCESO DENEGADO");
         return false;
     }
     
@@ -112,31 +109,19 @@ public class cliente {
             
             for (cliente usuarioGuardado : historialUsuarios) {
                 if (usuarioGuardado.getEmail().equalsIgnoreCase(correo) && usuarioGuardado.getContrasena().equals(clave)) {
-                    System.out.println("Bienvenido de nuevo " + usuarioGuardado.getNombre() + " !");
+                    System.out.println("Bienvenido " + usuarioGuardado.getNombre() + " !");
                     return usuarioGuardado;
                 }
             }
-            System.out.println("Correo erroneo o contrasena incorrecta");
             contador++;
-            
         } while (contador < maxContador);
         
-        System.out.println("Has Alcanzado el limite de Intentos\n ACCESO DENEGADO");
         return null;
     }
     
     // ==========================================
     // 5. MÉTODOS DE DIRECCIÓN Y ENVÍO
     // ==========================================
-    public static cliente seleccionarDireccion(int indice) {
-        if (indice >= 0 && indice < lista.size()) {
-            return lista.get(indice); 
-        } else { 
-            System.out.println("Indice invalido"); 
-        } 
-        return null;
-    }
-
     public void elegirDire(carrito miCarrito) {
         Scanner sc = new Scanner(System.in);
         boolean compraConfirmada = false;
@@ -144,68 +129,76 @@ public class cliente {
         do {
             if (!this.direccion.equals("")) {
                 System.out.println("\nTienes una direccion guardada: " + this.direccion);
-                System.out.println("Deseas usar esta direccion para tu pedido?");
-                System.out.println("1. Si, enviar aqui");
-                System.out.println("2. No, ingresar otra direccion");
-                int opcionGuardada = sc.nextInt();
-                sc.nextLine();
+                System.out.println("Deseas usar esta direccion?");
+                System.out.println("1. Si");
+                System.out.println("2. No");
                 
-                if (opcionGuardada == 1) {
-                    miCarrito.mostrarDetalle(this, this.nombre);
-                    System.out.println("\n!Gracias por su compra!");
-                    compraConfirmada = true;
-                    continue;
-                    
-                } else if (opcionGuardada == 2) {
-                    this.direccion = "";
-                    this.precio = 0;
-                    System.out.println("\nDireccion anterior descartada. Por favor, elige una nueva zona.");
-                    
-                } else {
-                    this.direccion = ""; 
-                    this.precio = 0;
-                    System.out.println("\nOpcion invalida. Mostrando zonas de entrega...");
+                int opcionGuardada = -1;
+                
+                // --- Validacion de caracteres y decimales ---
+                try {
+                    opcionGuardada = Integer.parseInt(sc.nextLine());
+                } catch (NumberFormatException e) {
+                    // Se deja vacio porque opcionGuardada ya es -1 por defecto
+                }
+                
+                // --- Switch optimizado ---
+                switch (opcionGuardada) {
+                    case 1:
+                        miCarrito.mostrarDetalle(this, this.nombre);
+                        compraConfirmada = true;
+                        continue; 
+                    case 2:
+                        this.direccion = "";
+                        this.precio = 0;
+                        break; 
+                    default:
+                        System.out.println("\nOpcion invalida.");
+                        continue; 
                 }
             }
 
             System.out.println("\n--- Zonas de entrega ---");
             System.out.println("Se cobraran $15 de envio base");
-            
+
             for (int i = 0; i < lista.size(); i++) {
                 cliente l = lista.get(i);
                 System.out.println(i + ". " + l.getDireccion() + " - $" + l.getPrecio());
             }
             
-            System.out.println(lista.size() + ". Confirmar compra y direccion");
-            System.out.print("Seleccione una opcion: ");
-            int opcionDireccion = sc.nextInt();
-            sc.nextLine();
+            System.out.println(lista.size() + ". Confirmar");
+            System.out.print("Seleccione zona: ");
+            
+            int opcionDireccion = -1;
+            
+            // --- Validacion de caracteres y decimales ---
+            try {
+                opcionDireccion = Integer.parseInt(sc.nextLine());
+            } catch (NumberFormatException e) {
+                // Se deja vacio porque opcionDireccion ya es -1 por defecto
+            }
 
             if (opcionDireccion >= 0 && opcionDireccion < lista.size()) {
                 cliente zonaElegida = lista.get(opcionDireccion);
-                
-                System.out.println("\nHas elegido la zona: " + zonaElegida.getDireccion() + " - $" + zonaElegida.getPrecio());
-                System.out.println("Ingresa tu direccion especifica (Calle, Numero, Cruzamientos):");
+                System.out.println("Ingresa tu direccion exacta:");
                 String calleEspecifica = sc.nextLine();
                 
                 if (calleEspecifica.trim().isEmpty()) {
-                    System.out.println("\nError: La direccion especifica no puede estar vacia. Intentalo de nuevo.");
+                    System.out.println("\nError: No puede estar vacia.");
                 } else {
                     this.direccion = zonaElegida.getDireccion() + " - " + calleEspecifica;
                     this.precio = zonaElegida.getPrecio();
-                    System.out.println("\nDireccion guardada con exito. Ahora selecciona la opcion de Confirmar compra.");
                 }
                 
             } else if (opcionDireccion == lista.size()) {
                 if (!this.direccion.equals("")) {
                     miCarrito.mostrarDetalle(this, this.nombre);
-                    System.out.println("\n!Gracias por su compra!");
                     compraConfirmada = true;
                 } else {
-                    System.out.println("\nPrimero debes seleccionar una zona y proporcionar tu direccion antes de confirmar.");
+                    System.out.println("\nPrimero selecciona zona y direccion.");
                 }
             } else {
-                System.out.println("\nOpcion invalida. Por favor selecciona un numero de la lista.");
+                System.out.println("\nOpcion invalida.");
             }
         } while (!compraConfirmada);
     }
@@ -216,6 +209,6 @@ public class cliente {
     public String getNombre() { return this.nombre; }
     public String getEmail() { return this.email; }
     public String getContrasena() { return this.contrasena; }
-    public String getDireccion() { return direccion; }
-    public float getPrecio() { return precio; }
+    public String getDireccion() { return this.direccion; }
+    public float getPrecio() { return this.precio; }
 }

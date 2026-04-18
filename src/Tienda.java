@@ -5,15 +5,9 @@ public class Tienda {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
-        // ==========================================
-        // 1. INICIALIZACIÓN DE DATOS GLOBALES
-        // ==========================================
         productos.inventario();
         cliente.lista();
 
-        // ==========================================
-        // 2. VARIABLES DE SESIÓN 
-        // ==========================================
         ArrayList<cliente> historialUsuarios = new ArrayList<>();
         cliente c = null; 
         boolean puedeEntrar = false;
@@ -29,18 +23,21 @@ public class Tienda {
                         System.out.println("1. Registrar nuevo usuario");
                         System.out.println("2. Inicie sesion con cuenta existente");
                         System.out.println("3. Salir");
-                        opcionAcceso = sc.nextInt();
-                        sc.nextLine(); 
+                        System.out.print("Seleccione una opcion: ");
+                        
+                        // --- Validacion de caracteres y decimales ---
+                        try {
+                            opcionAcceso = Integer.parseInt(sc.nextLine());
+                        } catch (NumberFormatException e) {
+                            opcionAcceso = -1; 
+                        }
                         
                         if (opcionAcceso < 1 || opcionAcceso > 3) {
-                            System.out.println("Opcion invalida. Intente de nuevo.");
+                            System.out.println("Opcion invalida. Por favor ingrese un numero entero.");
                         }
                     } while (opcionAcceso < 1 || opcionAcceso > 3);
                 }
 
-                // ==========================================
-                // 3. INSTANCIACIÓN DE USUARIOS
-                // ==========================================
                 switch (opcionAcceso) {
                     case 1:
                         c = new cliente();
@@ -59,13 +56,10 @@ public class Tienda {
                 }
             }
 
-            // ==========================================
-            // 4. FLUJO DE COMPRA 
-            // ==========================================
             if (puedeEntrar) {
 
                 carrito miCarrito = new carrito(); 
-                int opcionMenu;
+                int opcionMenu = 0; 
 
                 do {
                     System.out.println("\n========= TIENDA =========");
@@ -75,8 +69,12 @@ public class Tienda {
                     System.out.println("4. Salir");
                     System.out.print("Seleccione una opcion: ");
 
-                    opcionMenu = sc.nextInt();
-                    sc.nextLine();
+                    // --- Validacion de caracteres y decimales ---
+                    try {
+                        opcionMenu = Integer.parseInt(sc.nextLine());
+                    } catch (NumberFormatException e) {
+                        opcionMenu = -1; 
+                    }
 
                     switch(opcionMenu){
                         case 1:
@@ -90,9 +88,9 @@ public class Tienda {
                         case 3:
                             if (!miCarrito.estaVacio()) {
                                 c.elegirDire(miCarrito);
-                                opcionMenu=4; 
+                                opcionMenu = 4; 
                             } else {
-                                System.out.println("El carrito esta vacio. !Ve a los pasillos 1 o 2 para agregar productos antes de pagar!");
+                                System.out.println("\nEl carrito esta vacio.");
                             }
                             break;
 
@@ -101,25 +99,28 @@ public class Tienda {
                             break;
 
                         default:
-                            System.out.println("Opcion invalida");
+                            System.out.println("\nOpcion invalida.");
                     }
 
                 } while(opcionMenu != 4);
 
-                // ==========================================
-                // 5. CIERRE DE SESIÓN
-                // ==========================================
                 do {
                     System.out.println("\n---------------------------------------------");
                     System.out.println("Desea realizar otra compra en el sistema?");
                     System.out.println("1. Si, continuar con el mismo usuario (" + c.getNombre() + ")");
                     System.out.println("2. Si, registrar o acceder con otro usuario");
                     System.out.println("3. No, cerrar sistema");
-                    opcionContinuarTienda = sc.nextInt();
-                    sc.nextLine();
+                    System.out.print("Seleccione una opcion: ");
+                    
+                    // --- Validacion de caracteres y decimales ---
+                    try {
+                        opcionContinuarTienda = Integer.parseInt(sc.nextLine());
+                    } catch (NumberFormatException e) {
+                        opcionContinuarTienda = -1; 
+                    }
                     
                     if (opcionContinuarTienda < 1 || opcionContinuarTienda > 3) {
-                        System.out.println("Opcion invalida. Intente de nuevo.");
+                        System.out.println("Opcion invalida.");
                     }
                 } while (opcionContinuarTienda < 1 || opcionContinuarTienda > 3);
                 
@@ -129,6 +130,6 @@ public class Tienda {
 
         } while (opcionContinuarTienda == 1 || opcionContinuarTienda == 2);
 
-        System.out.println("\nSistema cerrado correctamente. !Gracias por su compra!");
+        System.out.println("\nSistema cerrado correctamente.");
     }
 }
