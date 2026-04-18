@@ -17,7 +17,15 @@ public class NoPedecederos extends productos {
     }
 
     // ==========================================
-    // 3. MÉTODOS DE COMPRA (Lógica de Pasillo)
+    // 3. POLIMORFISMO
+    // ==========================================
+    @Override
+    public String obtenerDetalles() {
+        return super.obtenerDetalles() + " | Empaque: " + this.tipoDeEmpaque;
+    }
+
+    // ==========================================
+    // 4. MÉTODOS DE COMPRA 
     // ==========================================
     public static void mostrarNoPerecederos(carrito miCarrito) {
         Scanner sc = new Scanner(System.in);
@@ -34,12 +42,7 @@ public class NoPedecederos extends productos {
                     NoPedecederos np = (NoPedecederos) p;
                     lista.add(np);
 
-                    System.out.println(
-                        index + ". " + p.getNombre() +
-                        " - $" + p.getPrecio() +
-                        " | Stock: " + p.getStock() +
-                        " | Empaque: " + np.getTipoDeEmpaque()
-                    );
+                    System.out.println(index + ". " + p.obtenerDetalles());
                     index++;
                 }
             }
@@ -72,7 +75,7 @@ public class NoPedecederos extends productos {
     }
 
     // ==========================================
-    // 4. GETTERS
+    // 5. GETTERS
     // ==========================================
     public String getTipoDeEmpaque() {
         return tipoDeEmpaque;

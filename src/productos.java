@@ -30,7 +30,13 @@ public class productos {
     }
 
     // ==========================================
-    // 3. MÉTODOS DE INVENTARIO Y STOCK
+    // 3. MÉTODOS POLIMÓRFICOS
+    // ==========================================
+    public String obtenerDetalles() {
+        return this.nombre + " - $" + this.precio + " | Stock: " + this.stock;
+    }
+    // ==========================================
+    // 4. MÉTODOS DE INVENTARIO Y STOCK
     // ==========================================
     public static void inventario() {
         if (!catalogo.isEmpty()) return; 
@@ -81,7 +87,7 @@ public class productos {
     }
 
     // ==========================================
-    // 4. GETTERS 
+    // 5. GETTERS 
     // ==========================================
     public String getNombre() { return this.nombre; }
     public float getPrecio() { return this.precio; }

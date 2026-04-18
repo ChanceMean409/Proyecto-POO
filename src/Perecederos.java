@@ -17,7 +17,15 @@ public class Perecederos extends productos {
     }
 
     // ==========================================
-    // 3. MÉTODOS DE COMPRA (Lógica de Pasillo)
+    // 3. POLIMORFISMO 
+    // ==========================================
+    @Override 
+    public String obtenerDetalles() {
+        return super.obtenerDetalles() + " | Caduca: " + this.fechaCaducidad;
+    }
+
+    // ==========================================
+    // 4. MÉTODOS DE COMPRA 
     // ==========================================
     public static void mostrarPerecederos(carrito miCarrito) {
         Scanner sc = new Scanner(System.in);
@@ -34,12 +42,7 @@ public class Perecederos extends productos {
                     Perecederos per = (Perecederos) p;
                     lista.add(per);
 
-                    System.out.println(
-                        index + ". " + p.getNombre() +
-                        " - $" + p.getPrecio() +
-                        " | Stock: " + p.getStock() +
-                        " | Caduca: " + per.getFechaCaducidad()
-                    );
+                    System.out.println(index + ". " + p.obtenerDetalles());
                     index++;
                 }
             }
@@ -57,12 +60,12 @@ public class Perecederos extends productos {
                     if (seleccionado.verificarDisponibilidad(cantidad)) {
                         miCarrito.agregarProductos(seleccionado, cantidad);
                     } else {
-                        System.out.println("\nLo sentimos, no hay suficiente stock para la cantidad solicitada.");
+                        System.out.println("\nLo sentimos, no hay suficiente stock.");
                     }
                 } else if (cantidad == 0) {
-                    System.out.println("\nSeleccion cancelada: No se agregaron productos al carrito.");
+                    System.out.println("\nSeleccion cancelada: No se agregaron productos.");
                 } else {
-                    System.out.println("\nError: Por favor, ingrese una cantidad valida (mayor a 0).");
+                    System.out.println("\nError: Ingrese una cantidad valida (mayor a 0).");
                 }
 
             } else if (opcion != lista.size()) {
@@ -72,7 +75,7 @@ public class Perecederos extends productos {
     }
 
     // ==========================================
-    // 4. GETTERS
+    // 5. GETTERS
     // ==========================================
     public String getFechaCaducidad() {
         return fechaCaducidad;
