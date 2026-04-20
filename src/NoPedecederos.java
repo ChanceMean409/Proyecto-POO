@@ -24,19 +24,19 @@ public class NoPedecederos extends productos {
         return super.obtenerDetalles() + " | Empaque: " + this.tipoDeEmpaque;
     }
  public static void inventario() {
-        catalogo.add(new NoPedecederos("Jabón en barra", 2, 40, "Limpieza", "Envoltura de papel"));
-        catalogo.add(new NoPedecederos("Detergente polvo", 5, 25, "Limpieza", "Bolsa plástica"));
-        catalogo.add(new NoPedecederos("Papel higiénico", 3, 50, "Higiene", "Empaque plástico (4 rollos)"));
-        catalogo.add(new NoPedecederos("Pasta dental", 4, 30, "Higiene", "Caja de cartón"));
-        catalogo.add(new NoPedecederos("Champú", 6, 20, "Cuidado Personal", "Botella de plástico"));
+        catalogo.add(new NoPedecederos("Jabon en barra", 2, 40, "Limpieza", "Envoltura de papel"));
+        catalogo.add(new NoPedecederos("Detergente polvo", 5, 25, "Limpieza", "Bolsa plastica"));
+        catalogo.add(new NoPedecederos("Papel higienico", 3, 50, "Higiene", "Empaque plastico (4 rollos)"));
+        catalogo.add(new NoPedecederos("Pasta dental", 4, 30, "Higiene", "Caja de carton"));
+        catalogo.add(new NoPedecederos("Champu", 6, 20, "Cuidado Personal", "Botella de plástico"));
         catalogo.add(new NoPedecederos("Esponja de cocina", 1, 60, "Limpieza", "Bolsa de polipropileno"));
-        catalogo.add(new NoPedecederos("Pilas AA", 7, 15, "Ferretería", "Blister de cartón y plástico"));
-        catalogo.add(new NoPedecederos("Fósforos", 1, 100, "Hogar", "Caja de cartón"));
-        catalogo.add(new NoPedecederos("Bombilla LED", 4, 22, "Iluminación", "Caja de cartón"));
+        catalogo.add(new NoPedecederos("Pilas AA", 7, 15, "Ferreteria", "Blister de carton y plastico"));
+        catalogo.add(new NoPedecederos("Fosforos", 1, 100, "Hogar", "Caja de carton"));
+        catalogo.add(new NoPedecederos("Bombilla LED", 4, 22, "Iluminacion", "Caja de carton"));
         catalogo.add(new NoPedecederos("Cloro", 2, 18, "Desinfectantes", "Botella de polietileno"));
-        catalogo.add(new NoPedecederos("Cinta adhesiva", 2, 12, "Papelería", "Rollo plástico"));
+        catalogo.add(new NoPedecederos("Cinta adhesiva", 2, 12, "Papeleria", "Rollo plastico"));
         catalogo.add(new NoPedecederos("Bolsas de basura", 3, 35, "Limpieza", "Rollo con banda de papel"));
-        catalogo.add(new NoPedecederos("Velas blancas", 5, 10, "Hogar", "Paquete de celofán"));
+        catalogo.add(new NoPedecederos("Velas blancas", 5, 10, "Hogar", "Paquete de celofan"));
     }
  
     // ==========================================
