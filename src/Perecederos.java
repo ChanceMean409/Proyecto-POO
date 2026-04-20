@@ -24,15 +24,15 @@ public class Perecederos extends productos {
         return super.obtenerDetalles() + " | Caduca: " + this.fechaCaducidad;
     }
         public static void inventario() {
-        catalogo.add(new Perecederos("Pan de elote (2 piezas)", 15, 59, "Harinas", "25/03/2026"));
-        catalogo.add(new Perecederos("Pan Chocha de vainilla (1 unidad)", 15, 39, "Harinas", "24/04/2026"));
+        catalogo.add(new Perecederos("Pan de elote (2 piezas)", 15, 59, "Harinas", "25/04/2026"));
+        catalogo.add(new Perecederos("Pan Concha de vainilla (1 unidad)", 15, 39, "Harinas", "24/04/2026"));
         catalogo.add(new Perecederos("Atun en agua", 25, 20, "Enlatados", "12/06/2026"));
         catalogo.add(new Perecederos("Atun en aceite", 35, 25, "Enlatados", "03/08/2026"));
         catalogo.add(new Perecederos("Chiplotles (bolsa pequena)", 15, 48, "Enlatados", "19/09/2026"));
         catalogo.add(new Perecederos("Vasos desechables (10 vasos)", 20, 30, "Desechables", "31/10/2026"));
         catalogo.add(new Perecederos("Coca cola 3L", 54, 20, "Bebidas", "14/12/2026"));
-        catalogo.add(new Perecederos("Leche", 31, 58, "Lacteos", "27/03/2026"));
-        catalogo.add(new Perecederos("Queso Oaxaca", 55, 10, "Lacteos", "11/03/2026"));
+        catalogo.add(new Perecederos("Leche", 31, 58, "Lacteos", "27/04/2026"));
+        catalogo.add(new Perecederos("Queso Oaxaca", 55, 10, "Lacteos", "11/05/2026"));
         catalogo.add(new Perecederos("Queso Fresco", 35, 10, "Lacteos", "22/05/2026"));
         catalogo.add(new Perecederos("Sopa", 7, 48, "Harinas", "05/07/2026"));
         catalogo.add(new Perecederos("Mayonesa", 35, 10, "Enlatados", "30/09/2026"));
