@@ -4,8 +4,8 @@ import java.util.Scanner;
 public class Tienda {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-
-        productos.inventario();
+        Perecederos.inventario();
+        NoPedecederos.inventario();
         cliente.lista();
 
         ArrayList<cliente> historialUsuarios = new ArrayList<>();
