@@ -139,10 +139,8 @@ public class cliente {
                 try {
                     opcionGuardada = Integer.parseInt(sc.nextLine());
                 } catch (NumberFormatException e) {
-                    // Se deja vacio porque opcionGuardada ya es -1 por defecto
                 }
                 
-                // --- Switch optimizado ---
                 switch (opcionGuardada) {
                     case 1:
                         miCarrito.mostrarDetalle(this, this.nombre);
