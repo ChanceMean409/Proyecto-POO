@@ -88,6 +88,7 @@ public class carrito {
             System.out.println("TOTAL A PAGAR: $" + calcularTotal(direccionElegida));
 
             String nombreSinEspacios = nombreCliente.replace(" ", "_");
+            //cambien esto por una direccion de su lap
             String rutaArchivo = "C:\\Users\\rlopr\\Escritorio\\.txt\\Ticket_" + nombreSinEspacios + ".txt";
 
             try {
